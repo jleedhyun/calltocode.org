@@ -22,13 +22,23 @@ const causes = [
   'Other'
 ]
 
+const techs = [
+  'JavaScript',
+  'Ruby',
+  'Java',
+  'Python',
+  'PHP',
+  'C++',
+  'Other'
+]
+
 class CreateProjectForm extends Component {
   constructor (props, context) {
     super(props, context)
     this.createProject = this.createProject.bind(this)
     this.saveFile = this.saveFile.bind(this)
     this.projectNameChange = this.projectNameChange.bind(this)
-    this.renderCauses = this.renderCauses.bind(this)
+    this.renderList = this.renderList.bind(this)
     this.state = {
       error: '',
       projectName: ''
@@ -50,12 +60,12 @@ class CreateProjectForm extends Component {
     }
   }
 
-  renderCauses () {
-    return causes.map((cause, index) => {
+  renderList (items) {
+    return items.map((item, index) => {
       return (
         <FormControlLabel key={index}
           control={ <Checkbox value="checkedA" /> }
-          label={cause}
+          label={item}
         />
       )
     })
@@ -77,7 +87,12 @@ class CreateProjectForm extends Component {
 
         <FormLabel>Causes</FormLabel>
         <FormGroup row>
-          {this.renderCauses()}
+          {this.renderList(causes)}
+        </FormGroup>
+
+        <FormLabel>Technologies</FormLabel>
+        <FormGroup row>
+          {this.renderList(techs)}
         </FormGroup>
 
         <Button type="submit" disabled={this.state.projectName.length === 0} raised className={classes.root} color="primary" fullWidth>
